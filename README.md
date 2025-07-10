@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🚀 Auth-NextJS Project Summary
+This is a full-stack authentication system built with:
 
-## Getting Started
+✅ Next.js 15 (App Router, API routes, Middleware)
 
-First, run the development server:
+✅ MongoDB (with Mongoose) for user data storage
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+✅ Tailwind CSS for styling
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+✅ Nodemailer + Mailtrap for email verification
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+✅ JWT cookies for secure authentication
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🔑 Key Features
+1. User Registration (Signup)
+   New users can register with username, email, and password.
+   Passwords are hashed using bcryptjs before saving in MongoDB.
+   Sends a verification email to confirm the user’s email address.
+   Generates a secure random token for email verification.
 
-## Learn More
+2.Email Verification
+  The user clicks the link in their email to verify.
+  The /verifyemail page consumes the token and marks the user as isVerified=true in the DB.
 
-To learn more about Next.js, take a look at the following resources:
+3.User Login
+  Only allows login for users with isVerified=true.
+  On successful login, sets a JWT token in an HTTP-only cookie.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4.Protected Routes
+  Middleware checks if the user is logged in (via cookie).
+  Blocks access to /profile and other private pages if not authenticated.
+  Redirects users appropriately between public and private pages.
+  
+5.Forgot Password (Optional but Supported)
+  Generates a secure reset token.
+  Sends a password reset link via email.
+  Allows users to securely reset their password.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+FOLDER STRUCTURE:
+/app
+  /login
+  /signup
+  /profile
+  /verifyemail
+  /api/users
+    login.ts
+    signup.ts
+    verifyemail.ts
 
-## Deploy on Vercel
+/dbConfig
+  dbConfig.ts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+/models
+  userModel.ts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+/helpers
+  mailer.ts
+
+/middleware.ts
