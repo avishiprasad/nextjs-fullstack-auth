@@ -20,15 +20,15 @@ const userSchema=new mongoose.Schema({
         type:Boolean,
         default:false,
     },
-    usAdmin:{
+    isAdmin:{
         type:Boolean,
         default:false,
     },
     forgotPasswordToken:String,
-    forgotPasswordToeknExpiry:Date,
+    forgotPasswordTokenExpiry:Date,
     verifyToken:String,
-    cerifyTokenExpiry:Date,
+    verifyTokenExpiry:Date,
 })
 
-const User=mongoose.model.users || mongoose.model("users",userSchema);
+const User=mongoose.models.users || mongoose.model("users",userSchema);
 export default User;
